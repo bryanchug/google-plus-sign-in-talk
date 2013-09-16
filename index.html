@@ -18,7 +18,7 @@
 
     <meta charset='utf-8'>
     <script
-            src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+            src='https://html5slides.googlecode.com/svn/trunk/slides.js'></script>
 </head>
 
 <style>
@@ -160,11 +160,70 @@
     </article>
 
     <article>
+        <h3>Try out the client-side flow</h3>
+        <p>
+            Include the Google+ JavaScript on your page
+            <section>
+                <pre>&lt;!-- Place this asynchronous JavaScript just before your &lt;/body&gt; tag --&gt;
+&lt;script type="text/javascript"&gt;
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/client:plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+&lt;/script&gt;</pre>
+            </section>
+        </p>
+        <div class="source">
+            https://developers.google.com/+/web/signin/#step_2_include_the_google_script_on_your_page
+        </div>
+    </article>
+
+    <article>
+        <h3>Try out the client-side flow</h3>
+        <p>
+            Add the sign-in button to your page
+            <section>
+                <pre>&lt;span id="signinButton"&gt;
+    &lt;span
+        class="g-signin"
+        data-callback="signinCallback"
+        data-clientid="CLIENT_ID"
+        data-cookiepolicy="single_host_origin"
+        data-requestvisibleactions="http://schemas.google.com/AddActivity"
+        data-scope="https://www.googleapis.com/auth/plus.login"&gt;
+    &lt;/span&gt;
+&lt;/span&gt;</pre>
+            </section>
+        </p>
+        <div class="source">
+            https://developers.google.com/+/web/signin/#step_3_adding_a_sign-in_button_to_your_page
+        </div>
+    </article>
+
+    <article>
         <h3>Notes</h3>
         <p>
             To manage app authorization, go to<br/>
             <a target="_blank" href="https://plus.google.com/apps">https://plus.google.com/apps</a>
         </p>
+    </article>
+
+    <article>
+        <h3>Artifacts</h3>
+        <ul>
+            <li>https://rawgithub.com/bryanchug/google-plus-sign-in-talk/master/index.html</li>
+            <li>https://github.com/bryanchug/google-plus-sign-in-talk</li>
+            <li>https://github.com/bryanchug/grails-google-plus-sign-in-app</li>
+        </ul>
+        <h3>References</h3>
+        <ul>
+            <li>https://developers.google.com/+/web/signin/</li>
+            <li>Google API Explorer</li>
+            <li>https://plus.google.com/apps</li>
+            <li>https://developers.google.com/+/web/signin/server-side-flow</li>
+            <li>https://developers.google.com/+/</li>
+        </ul>
     </article>
 
     <article>
@@ -241,18 +300,15 @@
             A slide with an embed + title
         </h3>
 
-        <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
     </article>
 
     <article class='nobackground'>
-        <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
     </article>
 
     <article class='fill'>
         <h3>
             Full-slide embed with (optional) slide title on top
         </h3>
-        <iframe src='http://www.google.com/doodle4google/history.html'></iframe>
     </article>
 
     <article>
