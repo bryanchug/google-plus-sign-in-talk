@@ -281,6 +281,36 @@ com.google.apis:google-api-services-oauth2:v2-rev48-1.16.0-rc</pre>
     <article>
         <h3>Try out the server-side flow - Send the authorization code to the server</h3>
         <section>
+            <pre style="font-size: 15px; line-height: 1.5">function signinCallback(authResult) {
+    //added authResult['g-oauth-window'] to check sign-in button
+    //was explicitly clicked
+    if (authResult['access_token'] && authResult['g-oauth-window']) {
+        console.log( authResult );
+        gapi.client.load('oauth2', 'v2', function() {
+            var request = gapi.client.oauth2.userinfo.get();
+            request.execute(function(obj){
+                $.post('/login/plus', {
+                    code: authResult.code,
+                    email: obj.email,
+                    gPlusId: obj.id
+                }, function(data){
+                    if( data.status == 'success' ){
+                        location.href = data.redirectUri;
+                    }
+                });
+            });
+        });
+    }
+}</pre>
+        </section>
+        <div class="source">
+            https://github.com/bryanchug/grails-google-plus-sign-in-app/commit/f9d5be7e4eb6aa781ba8a0790161089069600a2f
+        </div>
+    </article>
+
+    <article>
+        <h3>Try out the server-side flow - Send the authorization code to the server</h3>
+        <section>
             <pre style="font-size: 16px; line-height: 1.5">function signinCallback(authResult) {
     //added authResult['g-oauth-window'] to check sign-in button
     //was explicitly clicked
@@ -302,6 +332,71 @@ com.google.apis:google-api-services-oauth2:v2-rev48-1.16.0-rc</pre>
         });
     }
 }</pre>
+        </section>
+    </article>
+
+    <article>
+        <h3 style="font-size: 22px">Try out the server-side flow - Confirm code & authenticate user to your app</h3>
+        <section>
+            <pre style="font-size: 14px; line-height: 1.5">def plus = {
+
+    String gPlusId = params.gPlusId
+    String code = params.code
+    String email = params.email
+
+    // Upgrade the authorization code into an access and refresh token.
+    GoogleTokenResponse tokenResponse =
+        new GoogleAuthorizationCodeTokenRequest(TRANSPORT, JSON_FACTORY,
+                CLIENT_ID, CLIENT_SECRET, code, "postmessage").execute();
+
+    // Create a credential representation of the token data.
+    GoogleCredential credential = new GoogleCredential.Builder()
+            .setJsonFactory(JSON_FACTORY)
+            .setTransport(TRANSPORT)
+            .setClientSecrets(CLIENT_ID, CLIENT_SECRET).build()
+            .setFromTokenResponse(tokenResponse);
+
+    // Check that the token is valid.
+    Oauth2 oauth2 = new Oauth2.Builder(
+            TRANSPORT, JSON_FACTORY, credential).build();
+    Tokeninfo tokenInfo = oauth2.tokeninfo()
+            .setAccessToken(credential.getAccessToken()).execute();
+
+}</pre>
+        </section>
+        <div class="source">
+            https://github.com/bryanchug/grails-google-plus-sign-in-app/commit/f9d5be7e4eb6aa781ba8a0790161089069600a2f
+        </div>
+    </article>
+
+    <article>
+        <h3 style="font-size: 22px">Try out the server-side flow - Confirm code & authenticate user to your app</h3>
+        <section>
+            <pre style="font-size: 15px; line-height: 1.5">// If there was an error in the token info, abort.
+if (tokenInfo.containsKey("error")) {
+    response.sendError 401
+    return
+}
+// Make sure the token we got is for the intended user.
+if (tokenInfo.getUserId() != gPlusId || tokenInfo.email != email) {
+    response.sendError 401
+    return
+}
+// Make sure the token we got is for our app.
+if (!tokenInfo.getIssuedTo().equals(CLIENT_ID)) {
+    response.sendError 401
+    return
+}
+User user = User.findByUsername(tokenInfo.email)
+if (!user) {
+    user = new User(username: tokenInfo.email).save()
+}
+springSecurityService.reauthenticate(user.username)
+def jsonResponse = [
+    status: 'success',
+    redirectUri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
+]
+render(jsonResponse as JSON)</pre>
         </section>
     </article>
 
