@@ -131,8 +131,8 @@
         <h3>Steps</h3>
         <ul>
             <li>Get API Access</li>
-            <li>Try-out the <strong class="red">client-side</strong> flow of Google+ Sign-In</li>
-            <li>Try-out the <strong class="green">server-side</strong> flow of Google+ Sign-In</li>
+            <li>Try out the <strong class="red">client-side</strong> flow of Google+ Sign-In</li>
+            <li>Try out the <strong class="green">server-side</strong> flow of Google+ Sign-In</li>
         </ul>
     </article>
 
@@ -239,6 +239,35 @@ function signinCallback(authResult){
     </article>
 
     <article>
+        <h3>Try out the server-side flow</h3>
+        <p>
+            <img src="https://developers.google.com/+/images/server_side_code_flow.png"/>
+        </p>
+        <div class="source">
+            https://developers.google.com/+/web/signin/server-side-flow
+        </div>
+    </article>
+
+    <article>
+        <h3>Try out the server-side flow</h3>
+
+        <h4>We'll use a Grails webapp as the sample server</h4>
+        <img src="http://grails.org/doc/latest/img/grails.png"/>
+
+        <h4>We'll go with using Java libraries/dependencies from the Maven repository</h4>
+        <section>
+            <pre>com.google.api-client:google-api-client:1.16.0-rc
+com.google.http-client:google-http-client-jackson2:1.16.0-rc
+com.google.apis:google-api-services-oauth2:v2-rev48-1.16.0-rc</pre>
+        </section>
+
+        <div class="source">
+            http://grails.org/<br/>
+            https://github.com/bryanchug/grails-google-plus-sign-in-app
+        </div>
+    </article>
+
+    <article>
         <h3>Notes</h3>
         <p>
             To manage app authorization, go to<br/>
@@ -260,6 +289,9 @@ function signinCallback(authResult){
             <li>https://plus.google.com/apps</li>
             <li>https://developers.google.com/+/web/signin/server-side-flow</li>
             <li>https://developers.google.com/+/</li>
+            <li>https://code.google.com/p/google-api-java-client/</li>
+            <li>https://code.google.com/p/google-http-java-client/</li>
+            <li>https://code.google.com/p/google-api-java-client/wiki/APIs</li>
         </ul>
     </article>
 
