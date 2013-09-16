@@ -202,6 +202,43 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
     </article>
 
     <article>
+        <h3>Try out the client-side flow - Handling the sign-in</h3>
+        <section>
+            <pre style="font-size: 13px; line-height: 1.5">&lt;script type="text/javascript"&gt;
+function signinCallback(authResult){
+    if( authResult['access_token'] ){
+        gapi.client.load('plus', 'v1', function(){
+            var request = gapi.client.plus.people.get({ 'userId': 'me' });
+            request.execute(function(resp) {
+                console.log(resp);
+                //Using jQuery
+                var tbody = $('#gplus-profile tbody');
+                if(resp.name){
+                    if( resp.name.givenName ){
+                        tbody.append("&lt;tr&gt;&lt;td&gt;Given Name&lt;/td&gt;&lt;td&gt;"+resp.name.givenName+"&lt;/td&gt;");
+                    }
+                    if( resp.name.familyName ){
+                        tbody.append("&lt;tr&gt;&lt;td&gt;Family Name&lt;/td&gt;&lt;td&gt;"+resp.name.familyName+"&lt;/td&gt;");
+                    }
+                }
+                if(resp.image && resp.image.url){
+                    tbody.append("&lt;tr&gt;&lt;td&gt;Photo&lt;/td&gt;&lt;td&gt;&lt;img src='"+resp.image.url+"'/&gt;&lt;/td&gt;");
+                }
+                if(resp.url){
+                    tbody.append("&lt;tr&gt;&lt;td&gt;Google+ Profile&lt;/td&gt;&lt;td&gt;&lt;a href='"+resp.url+"'&gt;"+resp.url+"&lt;/a&gt;&lt;/td&gt;");
+                }
+                if(resp.result && resp.result.gender){
+                    tbody.append("&lt;tr&gt;&lt;td&gt;Gender&lt;/td&gt;&lt;td&gt;"+resp.result.gender+"&lt;/td&gt;");
+                }
+            });
+        });
+    }
+}
+&lt;/script&gt;</pre>
+        </section>
+    </article>
+
+    <article>
         <h3>Notes</h3>
         <p>
             To manage app authorization, go to<br/>
