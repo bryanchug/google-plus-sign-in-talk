@@ -239,6 +239,17 @@ function signinCallback(authResult){
     </article>
 
     <article>
+        <h3>Try out the client-side flow - <a href="https://developers.google.com/apis-explorer">APIs Explorer</a></h3>
+        https://developers.google.com/apis-explorer
+        <p>
+            <img style="max-height: 450px" src="http://kinlane-productions.s3.amazonaws.com/google/Google-API-Explorer-v2.png"/>
+        </p>
+        <div class="source">
+            http://apievangelist.com/2012/05/23/google-updates-the-api-explorer/
+        </div>
+    </article>
+
+    <article>
         <h3>Try out the server-side flow</h3>
         <p>
             <img src="https://developers.google.com/+/images/server_side_code_flow.png"/>
@@ -265,6 +276,33 @@ com.google.apis:google-api-services-oauth2:v2-rev48-1.16.0-rc</pre>
             http://grails.org/<br/>
             https://github.com/bryanchug/grails-google-plus-sign-in-app
         </div>
+    </article>
+
+    <article>
+        <h3>Try out the server-side flow - Send the authorization code to the server</h3>
+        <section>
+            <pre style="font-size: 16px; line-height: 1.5">function signinCallback(authResult) {
+    //added authResult['g-oauth-window'] to check sign-in button
+    //was explicitly clicked
+    if (authResult['access_token'] && authResult['g-oauth-window']) {
+        console.log( authResult );
+        gapi.client.load('oauth2', 'v2', function() {
+            var request = gapi.client.oauth2.userinfo.get();
+            request.execute(function(obj){
+                $.post('/login/plus', {
+                    code: authResult.code,
+                    email: obj.email,
+                    gPlusId: obj.id
+                }, function(data){
+                    if( data.status == 'success' ){
+                        location.href = data.redirectUri;
+                    }
+                });
+            });
+        });
+    }
+}</pre>
+        </section>
     </article>
 
     <article>
