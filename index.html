@@ -57,6 +57,17 @@
     </article>
 
     <article>
+        <h3 style="font-size: 30px">
+            This session aims to bring to light...
+        </h3>
+        <ul class="build" style="font-size: 60px">
+            <li class="blue">What is it?</li>
+            <li class="red">How does it help?</li>
+            <li style="color: orange">How to get started?</li>
+        </ul>
+    </article>
+
+    <article>
         <h3>
             What is it?
         </h3>
@@ -128,8 +139,11 @@
     </article>
 
     <article>
+        <h3>Sample Project</h3>
+        <h4>You can see follow along by viewing the source of the sample project here - <a target="_blank" href="http://goo.gl/01pGzD">http://goo.gl/01pGzD</a></h4>
+
         <h3>Steps</h3>
-        <ul>
+        <ul class="build">
             <li>Get API Access</li>
             <li>Try out the <strong class="red">client-side</strong> flow of Google+ Sign-In</li>
             <li>Try out the <strong class="green">server-side</strong> flow of Google+ Sign-In</li>
@@ -140,7 +154,7 @@
         <h3>Get API Access</h3>
         <p style="font-size: 24px">
             Go to Google API Console -
-            <a href="https://code.google.com/apis/console/">https://code.google.com/apis/console/</a>
+            <a target="_blank" href="https://code.google.com/apis/console/">https://code.google.com/apis/console/</a>
         </p>
         <p>
             <h4>Create a webapp client ID</h4>
@@ -247,6 +261,7 @@ function signinCallback(authResult){
 
     <article>
         <h3>Try out the server-side flow</h3>
+        <h4>The server-side flow allows full integration, so that a signed-in Google+ user can now be trusted by the server.</h4>
         <p>
             <img src="https://developers.google.com/+/images/server_side_code_flow.png"/>
         </p>
